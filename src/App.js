@@ -29,7 +29,7 @@ function App() {
     } else {
       return bdayDate;
     }
-  }, [bdayDate, setBDayDate]);
+  }, [bdayDate, setBDayDate, currentBDayDate]);
 
   const randomGif = () => {
     const gifs = [
@@ -60,7 +60,7 @@ function App() {
       {slide > 0 && slide < 3 && (
         <div className={classNamesBDay}>
           <span>HAPPY BIRTHDAY </span>
-          <span>CINDY MARGARITA! 🎉</span>
+          <span>CINDY MARGARITA! <span role="img" aria-label="tada">🎉</span></span>
         </div>
       )}
       {(slide === 1 && (
@@ -71,7 +71,7 @@ function App() {
             <span>
               Cindy (mi negri), hoy que es el día de tu cumpleaños, sólo quiero
               decirte que te deseo lo mejor de la vida, que este nuevo año esté cargado de mucha felicidad, salud, mucho amor e infinitas razones
-              para que sonrías 🎉🎉🎉.
+              para que sonrías <span role="img" aria-label="tada">🎉</span><span role="img" aria-label="tada">🎉</span><span role="img" aria-label="tada">🎉</span>.
               <br />
               <br />
               Te quiero Cindy Margarita, espero poder seguir celebrando tu vida
@@ -84,6 +84,7 @@ function App() {
               src="https://media.giphy.com/media/dCERkihZ9m7xjIvSau/giphy.gif"
               className="tap-me"
               onClick={showNextSlide}
+              alt="tap"
             />
           </div>
         )) ||
@@ -91,7 +92,7 @@ function App() {
     </div>
   ) : (
     <div className="App">
-      <img src={randomGif()} width="90%" />
+      <img src={randomGif()} width="90%" alt="not-yet"/>
       <span id="countdown">
         {`We'll be back ${formatDistanceToNow(calculatedDate(), new Date(), {
           addSuffix: false,

@@ -36,13 +36,12 @@ function Cake({ onNextSlide }) {
           {years > 0 && years < 30 ? years : ""}
         </span>
       </div>
-      <a onClick={countYears} href="#">
         <img
           src="https://media.giphy.com/media/QaBMSqWBhbgaKZb2Kb/giphy.gif"
           className="tap-here"
           onClick={countYears}
+          alt="tap"
         />
-      </a>
     </div>
   );
 }

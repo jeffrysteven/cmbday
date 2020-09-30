@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { formatDistanceToNow, isSameDay, isPast } from "date-fns";
 import cx from "classnames";
 import "./App.css";
@@ -11,16 +11,16 @@ function App() {
   const [bdayDate, setBDayDate] = useState(currentBDayDate);
   const showNextSlide = () => {
     const newSlide = slide + 1;
-    if(newSlide === 3) {
-      alert('Y ahora ...');
-      alert('El regalo!');
-      alert('O bueno, una representación gráfica de el regalo xD');
-      alert('Pon el teléfono en horizontal');
-      alert('Te quiero muchísimo negrita hermosa, feliz cumpleaños');
+    if (newSlide === 3) {
+      alert("Y ahora ...");
+      alert("El regalo!");
+      alert("O bueno, una representación gráfica de el regalo xD");
+      alert("Pon el teléfono en horizontal");
+      alert("Te quiero muchísimo negrita hermosa, feliz cumpleaños");
     }
     setSlide(newSlide);
   };
-  const calculatedDate = () /* -1 Lower Than - 0: Same Day - 1 Greater than */ => {
+  const calculatedDate = useCallback(() => {
     const currentDate = new Date();
     if (isPast(bdayDate, currentDate) && !isSameDay(bdayDate, currentDate)) {
       currentBDayDate.setFullYear(currentBDayDate.getFullYear() + 1);
@@ -29,11 +29,18 @@ function App() {
     } else {
       return bdayDate;
     }
-  };
+  }, [bdayDate, setBDayDate]);
+
   const randomGif = () => {
-    const gifs = ['https://media.giphy.com/media/RMhbmeqWeOBQIiQkS4/giphy.gif', 'https://media.giphy.com/media/AMSUrxqH4vxPW/giphy.gif', 'https://media.giphy.com/media/o5oLImoQgGsKY/giphy.gif', 'https://media.giphy.com/media/xf20D8HzvTQzu/giphy.gif', 'https://media.giphy.com/media/PWfHC8ogZpWcE/giphy.gif'];
+    const gifs = [
+      "https://media.giphy.com/media/RMhbmeqWeOBQIiQkS4/giphy.gif",
+      "https://media.giphy.com/media/AMSUrxqH4vxPW/giphy.gif",
+      "https://media.giphy.com/media/o5oLImoQgGsKY/giphy.gif",
+      "https://media.giphy.com/media/xf20D8HzvTQzu/giphy.gif",
+      "https://media.giphy.com/media/PWfHC8ogZpWcE/giphy.gif",
+    ];
     return gifs[Math.floor(Math.random() * gifs.length)];
-  }
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       calculatedDate();
@@ -62,11 +69,15 @@ function App() {
         (slide === 2 && (
           <div id="message">
             <span>
-              Cindy (mi negri), hoy que es el día de tu cumpleaños, sólo quiero decirte que te deseo lo mejor de la vida, 
-              que este nuevo año de vida sea de mucha felicidad, salud, mucho amor e infinitas razones para que sonrías 🎉🎉🎉.
-              <br/><br/>
-              Te quiero Cindy Margarita, espero poder seguir celebrando tu vida cada año que pase, seguir siendo testigo de tus logros y sobre todo de tu linda sonrisa.
-              Y como te dije el año pasado, ¡Seguí brillando negrita!, que cumplas muchísimos más.
+              Cindy (mi negri), hoy que es el día de tu cumpleaños, sólo quiero
+              decirte que te deseo lo mejor de la vida, que este nuevo año esté cargado de mucha felicidad, salud, mucho amor e infinitas razones
+              para que sonrías 🎉🎉🎉.
+              <br />
+              <br />
+              Te quiero Cindy Margarita, espero poder seguir celebrando tu vida
+              cada año que pase, seguir siendo testigo de tus logros y sobre
+              todo de tu linda sonrisa. Y como te dije el año pasado, ¡Seguí
+              brillando negrita!, que cumplas muchísimos más.
             </span>
             <hr />
             <img
@@ -80,7 +91,7 @@ function App() {
     </div>
   ) : (
     <div className="App">
-      <img src={randomGif()} width="90%"/>
+      <img src={randomGif()} width="90%" />
       <span id="countdown">
         {`We'll be back ${formatDistanceToNow(calculatedDate(), new Date(), {
           addSuffix: false,

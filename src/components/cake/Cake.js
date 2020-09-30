@@ -8,14 +8,14 @@ function Cake({ onNextSlide }) {
     setYears(years + 1);
   };
   useEffect(() => {
-    if (years === (new Date().getFullYear() - 1991)) {
+    if (years === new Date().getFullYear() - 1991) {
       onNextSlide();
     }
-    if(years === 10) {
-      alert('Falta poco');
+    if (years === 10) {
+      alert("Falta poco");
     }
-    if(years === 20) {
-      alert('Ya casi');
+    if (years === 20) {
+      alert("Ya casi");
     }
   }, [years, onNextSlide]);
   return (
@@ -36,10 +36,11 @@ function Cake({ onNextSlide }) {
           {years > 0 && years < 30 ? years : ""}
         </span>
       </div>
-      <a onClick={countYears}>
+      <a onClick={countYears} href="#">
         <img
           src="https://media.giphy.com/media/QaBMSqWBhbgaKZb2Kb/giphy.gif"
           className="tap-here"
+          onClick={countYears}
         />
       </a>
     </div>
